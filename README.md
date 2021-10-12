@@ -10,16 +10,16 @@ Le projet comporte 3 dossiers:
  - kubernetes
 
 Je fais le choix d'installer tous les requirements d'un coup dans un environnement dédié:
-'''
+```
 pip install -r requirements.txt
-'''
+```
 
 ## Train
 Pour lancer l'entrainement du modèle de machine learning, placez vous dans le dossier train puis exécutez le script model.py:
-'''
+```
 cd training
 python3 model.py
-'''
+```
 
 Le script model.py entraine un [RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html), affiche les métriques ([classifcation_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html), [confusion_matrix](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html), [f1_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html)) sur les ensembles de train et de test, et enregistre le modèle entrainé au format [pickle](https://docs.python.org/3/library/pickle.html) (model.pkl) ainsi que les métriques associées (scores.txt) dans le dossier data.
 
@@ -36,10 +36,10 @@ Cette API est développée avec le framework [FastAPI](https://fastapi.tiangolo.
  - data/model.pkl : le modèle de ML entrainé, au format pickle.
 
 Pour lancer l'API, exécutez les commandes suivantes :
-'''
+```
 cd FastAPI
 uvicorn FastAPI_projet_2:api
-'''
+```
 
 Le modèle est chargée au lancement de l'API.
 L'API est désormais accessible à l'adresse [localhost:8000](http://localhost:8000/).
@@ -47,7 +47,7 @@ L'API est désormais accessible à l'adresse [localhost:8000](http://localhost:8
 ![image](https://user-images.githubusercontent.com/62895586/136953713-8350ade9-2a60-4cbe-bc3e-72c0ea6c5d12.png)
 
 Afin de remplir les différentes features de l'API, voici un exemple:
-'''
+```
 {
   "user_id": 2930920,
   "signup_time": "2021-07-21 18:52:44",
@@ -60,37 +60,37 @@ Afin de remplir les différentes features de l'API, voici un exemple:
   "age": 35,
   "ip_address": 1120619336.0
 }
-'''
+```
 Vous obtiendrez le résultat suivant:
-'''
+```
 {
   "prediction": 1,
   "proba": 0.7819
 }
-'''
+```
 
 ### Docker
 Dans le dossier FastAPI, j'ai un fichier **Dockerfile** pour créer une image docker que je nomme **christophemc/fraud_api:latest** et ainsi pouvoir lancer l'API dans un container avec la commande suivante:
-'''
+```
 docker container run christophemc/fraud_api:latest
-'''
+```
 
 ## kubernetes
 Dans le dossier kubernetes, j'ai enregistré les fichiers nécessaires pour déployer mon API à grande échelle avec l'image docker précédemment créée.
 Pour le déploiement des pods, tapez la commande suivante:
-'''
+```
 kubectl create -f my-deployment-api.yml
-'''
+```
 
 Pour exposer leport de l'API à l'intérieur du container, nous devons créer un service avec la commande suivante:
-'''
+```
 kubectl create -f my-service-api.yml
-'''
+```
 
 Puis pour l'exposer à l'extérieur du container, nous créons un ingress avec la commande suivante:
-'''
+```
 kubectl create -f my-ingress-api.yml
-'''
+```
 
 L'API est désormais disponible à l'adresse suivante:
 
